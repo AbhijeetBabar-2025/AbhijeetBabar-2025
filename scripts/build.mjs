@@ -37,6 +37,13 @@ const PROJECTS = [
   { repo: "urban-experience-ui", title: "Urban Experience UI", text: "Taught me to study a city before designing a page.", tags: "Agent Skill  ·  HTML  ·  CSS  ·  JavaScript" },
 ];
 
+const REVOLUTION = [
+  ["P/E 31.2", "price is 31x yearly profit per share", "chatoor"],
+  ["GET /readyz 503", "not ready to trade yet", "trader-app"],
+  ["set up a speech pipeline", "hold a key and talk", "whisperwell"],
+  ["read the privacy rulebook", "checks built into each feature", "android-skill"],
+];
+
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 function assertFits(text, size, font, max) {
@@ -117,6 +124,36 @@ ${rows}`;
   return svg(800, height, title, css, body);
 }
 
+function revolution(t) {
+  const css = `
+.strike { transform-box: fill-box; transform-origin: left center; animation: strike 8s ease-in-out infinite; }
+.add { animation: add 8s ease-in-out infinite; }
+@keyframes strike { 0%, 13%, 100% { transform: none; } 4% { transform: scaleX(0); } }
+@keyframes add { 0%, 9%, 20%, 100% { opacity: 1; } 5% { opacity: .3; } }`;
+  const charWidth = 12.6;
+  const rows = REVOLUTION.map(([before, after, source], i) => {
+    const y = 72 + i * 84;
+    const delay = `animation-delay:${i * 2}s`;
+    const beforeWidth = before.length * charWidth;
+    const afterWidth = after.length * charWidth;
+    if (72 + Math.max(beforeWidth, afterWidth) + 16 > 768 - assertFits(source, 17, "mono", 200)) throw new Error(`Diff row "${after}" collides with its source label. Shorten one of them.`);
+    return `<rect x="24" y="${y}" width="752" height="36" rx="5" fill="${t.deny}" fill-opacity=".12"/><rect x="24" y="${y + 37}" width="752" height="36" rx="5" fill="${t.allow}" fill-opacity=".13"/>
+${label("-", 40, y + 25, 21, t.deny, { font: "mono", weight: 700 })}${label(before, 72, y + 25, 21, t.mute, { font: "mono", attrs: `textLength="${beforeWidth}" lengthAdjust="spacing"` })}
+<rect class="strike" style="${delay}" x="72" y="${y + 17}" width="${beforeWidth}" height="2" fill="${t.deny}"/>
+<g class="add" style="${delay}">${label("+", 40, y + 62, 21, t.allow, { font: "mono", weight: 700 })}${label(after, 72, y + 62, 21, t.ink, { font: "mono", attrs: `textLength="${afterWidth}" lengthAdjust="spacing"` })}</g>
+${label(source, 760, y + 61, 17, t.mute, { font: "mono", anchor: "end" })}`;
+  }).join("\n");
+  const end = 72 + REVOLUTION.length * 84;
+  const height = end + 54;
+  const body = `<rect x="1" y="1" width="798" height="${height - 2}" rx="16" fill="${t.panel}" stroke="${t.line}" stroke-width="1.5"/>
+${label("krantikari.diff", 32, 46, 19, t.mute, { font: "mono", max: 300 })}
+${label("one who brings revolution", 768, 46, 17, t.mute, { font: "mono", anchor: "end", max: 400 })}
+${rows}
+${label('$ git commit -m "complex in, simple out"', 32, end + 24, 17, t.accent, { font: "mono", max: 736 })}`;
+  const title = `Krantikari diff, one who brings revolution. ${REVOLUTION.map(([before, after]) => `Remove ${before}, add ${after}`).join(". ")}. Commit message: complex in, simple out.`;
+  return svg(800, height, title, css, body);
+}
+
 function card(t, project, active) {
   const when = `active ${active}`;
   const titleMax = 736 - assertFits(when, 16, "mono", 220) - 20;
@@ -169,10 +206,11 @@ for (const [name, theme] of Object.entries(THEMES)) {
     "button-deny": button(theme, "Field notes", false),
     "button-work": button(theme, "See the work", true),
     permissions: permissions(theme),
+    "krantikari-diff": revolution(theme),
     ...Object.fromEntries(PROJECTS.map((p) => [`project-${p.repo}`, card(theme, p, month(activity[p.repo]))])),
   };
   for (const [file, content] of Object.entries(files)) {
     await writeFile(join(ASSETS, `${file}-${name}.svg`), content);
   }
 }
-console.log(`Built ${(4 + PROJECTS.length) * 2} SVGs in assets/`);
+console.log(`Built ${(5 + PROJECTS.length) * 2} SVGs in assets/`);

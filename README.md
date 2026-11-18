@@ -85,6 +85,18 @@ The same habits show up in what Abhijeet builds.
   <img src="assets/project-urban-experience-ui-dark.svg" width="100%" alt="Urban Experience UI: taught me to study a city before designing a page.">
 </picture></a>
 
+## The Krantikari mission
+
+Krantikari means "one who brings revolution." Abhijeet's revolution is a practical one: bridge the gap between complex reports and systems and the people who need them, in the simplest way possible.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/krantikari-diff-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/krantikari-diff-light.svg">
+  <img src="assets/krantikari-diff-dark.svg" width="100%" alt="krantikari.diff. Remove P/E 31.2, add price is 31 times yearly profit per share. Remove GET /readyz 503, add not ready to trade yet. Remove set up a speech pipeline, add hold a key and talk. Remove read the privacy rulebook, add checks built into each feature. Commit message: complex in, simple out.">
+</picture>
+
+See it in [Chatoor](https://abhijeetbabar-2025.github.io/chatoor-docs/), which explains company numbers in plain words, or visit [Krantikari Tech](https://github.com/Kranti-kari-tech).
+
 ## Seen in the repos
 
 **Apps:** Swift, TypeScript, HTML, CSS, JavaScript, plus Kotlin and Jetpack Compose guidance  
