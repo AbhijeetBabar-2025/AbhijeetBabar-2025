@@ -97,6 +97,9 @@ Krantikari means "one who brings revolution." Abhijeet's revolution is a practic
 
 See it in [Chatoor](https://abhijeetbabar-2025.github.io/chatoor-docs/), which explains company numbers in plain words, or visit [Krantikari Tech](https://github.com/Kranti-kari-tech).
 
+<!-- profile-check:start -->
+<!-- profile-check:end -->
+
 ## Seen in the repos
 
 **Apps:** Swift, TypeScript, HTML, CSS, JavaScript, plus Kotlin and Jetpack Compose guidance  

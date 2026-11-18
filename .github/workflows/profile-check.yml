@@ -1,0 +1,54 @@
+name: Profile check
+
+# Runs monthly so the schedule stays active. The profile check itself runs in even months.
+on:
+  schedule:
+    - cron: "17 6 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Decide whether this is a check month
+        id: timing
+        run: |
+          month=$(date -u +%-m)
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || [ $((month % 2)) -eq 0 ]; then
+            echo "check=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "check=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Test the checker
+        if: steps.timing.outputs.check == 'true'
+        run: node --test scripts/check-profile.test.mjs
+      - name: Look for new projects and refresh activity dates
+        if: steps.timing.outputs.check == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/check-profile.mjs
+          node scripts/build.mjs
+      - name: Commit updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md assets data
+          if ! git diff --cached --quiet; then
+            git commit -m "Update profile from scheduled check"
+            git push
+            exit 0
+          fi
+          # GitHub disables scheduled workflows after 60 days without repository activity.
+          age=$(( $(date +%s) - $(git log -1 --format=%ct) ))
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$age" -gt 2160000 ]; then
+            git commit --allow-empty -m "Keep scheduled profile check active"
+            git push
+          fi
