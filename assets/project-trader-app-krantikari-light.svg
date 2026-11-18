@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 136" width="800" height="136" role="img" aria-label="Personal Trading Operator. A trading desk deliberately built so it can't trade. Python, FastAPI, PostgreSQL, TypeScript. active Oct 2026.">
+<title>Personal Trading Operator. A trading desk deliberately built so it can't trade. Python, FastAPI, PostgreSQL, TypeScript. active Oct 2026.</title>
+<style>
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }</style>
+<rect x="1" y="1" width="798" height="134" rx="14" fill="#f6f8fa" stroke="#d1d9e0" stroke-width="1.5"/>
+<text x="32" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="#1f2328" text-anchor="start" >Personal Trading Operator</text>
+<text x="768" y="41" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="16" font-weight="400" fill="#59636e" text-anchor="end" >active Oct 2026</text>
+<text x="32" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="400" fill="#1f2328" text-anchor="start" >A trading desk deliberately built so it can't trade.</text>
+<text x="32" y="112" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="17" font-weight="400" fill="#9a6700" text-anchor="start" >Python  ·  FastAPI  ·  PostgreSQL  ·  TypeScript</text>
+</svg>
